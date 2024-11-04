@@ -1,13 +1,26 @@
 const Player = require('../models/player');
 
 const getAllPlayers = async (req, res) => {
+    const limit = parseInt(req.query.limit) || 10;
+    const offset = parseInt(req.query.offset) || 0;
+
     try {
-        console.log("Intentando obtener jugadores...");
-        const players = await Player.findAll();
-        res.status(200).json(players);
+        const { count, rows } = await Player.findAndCountAll({
+            limit: limit,
+            offset: offset
+        });
+
+        return res.status(200).json({
+            total: count,
+            totalPages: Math.ceil(count / limit),
+            players: rows
+        });
+
+        // console.log("Intentando obtener jugadores...");
+        // const players = await Player.findAll();
+        // res.status(200).json(players);
     } catch (error) {
-        console.error("Error al obtener las jugadoras:", error);
-        res.status(500).json({ message: "Error al obtener las jugadoras" });
+        res.status(500).json({ message: "Error al obtener las jugadoras", error });
     }
 };
 
