@@ -1,0 +1,10 @@
+services:
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: fifa_female_players
+    volumes:
+      - ./src/sql/fifa_female_players.sql:/docker-entrypoint-initdb.d/fifa_female_players.sql
+    ports:
+      - "3307:3306"
