@@ -1,11 +1,38 @@
+const { sequelize } = require('../config/dbConfig');
 const Player = require('../models/player');
+const { Op, fn, col } = require('sequelize');
+
 
 const getAllPlayers = async (req, res) => {
-    const limit = parseInt(req.query.limit) || 10;
+    const { fifa_version, long_name, player_positions, club_name, nationality_name, preferred_foot } = req.query;
+    const limit = parseInt(req.query.limit) || 20;
     const offset = parseInt(req.query.offset) || 0;
+
+    const whereConditions = {};
+    if (fifa_version) {
+        whereConditions.fifa_version = { [Op.like]: `%${fifa_version}%` };
+    }
+    if (long_name) {
+        whereConditions.long_name = { [Op.like]: `%${long_name}%` };
+    }
+    if (player_positions) {
+        whereConditions.player_positions = { [Op.like]: `%${player_positions}%` };
+    }
+    if (club_name) {
+        whereConditions.club_name = { [Op.like]: `%${club_name}%` };
+    }
+    
+    if (nationality_name) {
+        whereConditions.nationality_name = { [Op.like]: `%${nationality_name}%` };
+    }
+    
+    if (preferred_foot) {
+        whereConditions.preferred_foot = { [Op.like]: `%${preferred_foot}%` };
+    }
 
     try {
         const { count, rows } = await Player.findAndCountAll({
+            where: whereConditions,
             limit: limit,
             offset: offset
         });
@@ -16,9 +43,6 @@ const getAllPlayers = async (req, res) => {
             players: rows
         });
 
-        // console.log("Intentando obtener jugadores...");
-        // const players = await Player.findAll();
-        // res.status(200).json(players);
     } catch (error) {
         res.status(500).json({ message: "Error al obtener las jugadoras", error });
     }
