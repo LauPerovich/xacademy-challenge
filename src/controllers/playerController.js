@@ -1,12 +1,11 @@
 const { sequelize } = require('../config/dbConfig');
 const Player = require('../models/player');
-const { Op, fn, col } = require('sequelize');
-
+const { Op } = require('sequelize');
+const fs = require('fs');
+const { exportToCSV } = require('../utils/csvHelper');
 
 const getAllPlayers = async (req, res) => {
-    const { fifa_version, long_name, player_positions, club_name, nationality_name, preferred_foot } = req.query;
-    const limit = parseInt(req.query.limit) || 20;
-    const offset = parseInt(req.query.offset) || 0;
+    const { fifa_version, long_name, player_positions, club_name, nationality_name, preferred_foot, download } = req.query;
 
     const whereConditions = {};
     if (fifa_version) {
@@ -21,27 +20,40 @@ const getAllPlayers = async (req, res) => {
     if (club_name) {
         whereConditions.club_name = { [Op.like]: `%${club_name}%` };
     }
-    
     if (nationality_name) {
         whereConditions.nationality_name = { [Op.like]: `%${nationality_name}%` };
     }
-    
     if (preferred_foot) {
         whereConditions.preferred_foot = { [Op.like]: `%${preferred_foot}%` };
     }
 
     try {
-        const { count, rows } = await Player.findAndCountAll({
-            where: whereConditions,
-            limit: limit,
-            offset: offset
-        });
+        if (download === 'true') {
+            const players = await Player.findAll({ where: whereConditions });
+            const filePath = exportToCSV(players.map(player => player.toJSON()), 'players_list.csv');
+            return res.download(filePath, 'players_list.csv', err => {
+                if (err) {
+                    res.status(500).json({ message: "Error al descargar el archivo CSV", error: err });
+                }
+                fs.unlinkSync(filePath); 
+            });
+        } else {
+            
+            const limit = parseInt(req.query.limit) || 20;
+            const offset = parseInt(req.query.offset) || 0;
 
-        return res.status(200).json({
-            total: count,
-            totalPages: Math.ceil(count / limit),
-            players: rows
-        });
+            const { count, rows } = await Player.findAndCountAll({
+                where: whereConditions,
+                limit: limit,
+                offset: offset
+            });
+
+            return res.status(200).json({
+                total: count,
+                totalPages: Math.ceil(count / limit),
+                players: rows
+            });
+        }
 
     } catch (error) {
         res.status(500).json({ message: "Error al obtener las jugadoras", error });
