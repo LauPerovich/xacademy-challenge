@@ -1,3 +1,4 @@
 const loggin = require('./loggin');
+const validationResult = require('./validator');
 
-module.exports = { loggin };
+module.exports = { loggin, validationResult };

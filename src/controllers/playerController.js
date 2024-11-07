@@ -72,16 +72,17 @@ const getPlayerById = async (req, res) => {
 };
 
 const createPlayer = async (req, res) => {
+    
     const { 
-        long_name, player_positions, club_name, nationality_name, age, 
+        player_face_url, long_name, player_positions, club_name, nationality_name, age, 
         height_cm, weight_kg, preferred_foot, pace, shooting, passing, dribbling,
-        defending, physic, player_traits 
+        defending, physic
         } = req.body;
     try {
         const newPlayer = await Player.create({ 
-            long_name, player_positions, club_name, nationality_name, age, 
+            player_face_url, long_name, player_positions, club_name, nationality_name, age, 
             height_cm, weight_kg, preferred_foot, pace, shooting, passing, dribbling,
-            defending, physic, player_traits
+            defending, physic
         });
         res.status(201).json(newPlayer);
     } catch (error) {
@@ -94,16 +95,18 @@ const createPlayer = async (req, res) => {
 };
 
 const updatePlayer = async (req, res) => {
+
     const { id } = req.params;
     const { 
-        long_name, player_positions, club_name, nationality_name, age, 
+        player_face_url, long_name, player_positions, club_name, nationality_name, age, 
         height_cm, weight_kg, preferred_foot, pace, shooting, passing, dribbling,
-        defending, physic, player_traits
+        defending, physic
     } = req.body;
     try {
         const player = await Player.findByPk(id);
         if (!player) return res.status(404).json({ message: 'Jugadora no encontrada'});
 
+        player.player_face_url = player_face_url;
         player.long_name = long_name;
         player.player_positions = player_positions;
         player.club_name = club_name;
@@ -118,7 +121,6 @@ const updatePlayer = async (req, res) => {
         player.dribbling = dribbling;
         player.defending = defending;
         player.physic = physic;
-        player.player_traits = player_traits;
         await player.save();
 
         res.status(200).json(player);
