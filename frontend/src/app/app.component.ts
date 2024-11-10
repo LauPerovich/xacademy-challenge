@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PlayersListComponent } from './components/players-list/players-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import { PlayersListComponent } from './components/players-list/players-list.com
   imports: [
     RouterOutlet,
     NavbarComponent,
-    PlayersListComponent
+    PlayersListComponent,
+    ReactiveFormsModule
   ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'

@@ -3,26 +3,26 @@
         <div class="card border-success mb-3" style="max-width: 30rem;">
             <div class="card-header text-center">Agregar jugadora</div>
             <div class="card-body">
-                <form action="">
-                    <input type="text"class="form-control" placeholder="Nombre">
-                    <input type="text"class="form-control mt-2" placeholder="Posición">
-                    <input type="text"class="form-control mt-2" placeholder="Club">
-                    <input type="text"class="form-control mt-2" placeholder="Nacionalidad">
-                    <input type="text"class="form-control mt-2" placeholder="Edad">
-                    <input type="text"class="form-control mt-2" placeholder="Altura">
-                    <input type="text"class="form-control mt-2" placeholder="Peso">
-                    <input type="text"class="form-control mt-2" placeholder="Ritmo">
-                    <input type="text"class="form-control mt-2" placeholder="Disparo">
-                    <input type="text"class="form-control mt-2" placeholder="Pases">
-                    <input type="text"class="form-control mt-2" placeholder="Regate">
-                    <input type="text"class="form-control mt-2" placeholder="Defensa">
-                    <input type="text"class="form-control mt-2" placeholder="Físico">
+                <form [formGroup]="form" (ngSubmit)="addProduct()">
+                    <input formControlName="long_name" class="form-control" placeholder="Nombre">
+                    <input formControlName="player_positions" type="text"class="form-control mt-2" placeholder="Posición">
+                    <input formControlName="club_name" type="text"class="form-control mt-2" placeholder="Club">
+                    <input formControlName="nationality_name" type="text"class="form-control mt-2" placeholder="Nacionalidad">
+                    <input formControlName="age" type="text"class="form-control mt-2" placeholder="Edad">
+                    <input formControlName="height_cm" type="text"class="form-control mt-2" placeholder="Altura">
+                    <input formControlName="weight_kg" type="text"class="form-control mt-2" placeholder="Peso">
+                    <input formControlName="pace" type="text"class="form-control mt-2" placeholder="Ritmo">
+                    <input formControlName="shooting" type="text"class="form-control mt-2" placeholder="Disparo">
+                    <input formControlName="passing" type="text"class="form-control mt-2" placeholder="Pases">
+                    <input formControlName="dribbling" type="text"class="form-control mt-2" placeholder="Regate">
+                    <input formControlName="defending" type="text"class="form-control mt-2" placeholder="Defensa">
+                    <input formControlName="physic" type="text"class="form-control mt-2" placeholder="Físico">
                     <div class="row mt-2 text-center">
                         <div class="col-lg-6">
                             <button type="button" class="btn btn-secondary" routerLink="/">Volver</button>
                         </div>
                         <div class="col-lg-6">
-                            <button type="button" class="btn btn-success ">Aceptar</button>
+                            <button type="submit" class="btn btn-success ">Aceptar</button>
                         </div>
                     </div>
                 </form>
