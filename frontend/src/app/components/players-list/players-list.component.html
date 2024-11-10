@@ -1,0 +1,52 @@
+<div class="container">
+    <div class="title">
+        <h4>Lista de jugadoras</h4>
+        <button type="button" class="btn btn-success" routerLink="/add">Agregar jugadora</button>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th scope="col"></th>
+            <th scope="col">Nombre</th>
+            <!-- <th scope="col">V. Fifa</th>
+            <th scope="col">A. Fifa</th> -->
+            <th scope="col">Posición</th>
+            <th scope="col">Club</th>
+            <th scope="col">Nacionalidad</th>
+            <th scope="col">Edad</th>
+            <th scope="col">Altura</th>
+            <th scope="col">Peso</th>
+            <th scope="col">Ritmo</th>
+            <th scope="col">Disparo</th>
+            <th scope="col">Pases</th>
+            <th scope="col">Regate</th>
+            <th scope="col">Defensa</th>
+            <th scope="col">Físico</th>
+        </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let player of playersList" class="table-active">
+            <!-- <th scope="row">Active</th> -->
+            <td>{{player.player_face_url}}</td>
+            <td>{{player.long_name}}</td>
+            <td>{{player.player_positions}}</td>
+            <td>{{player.club_name}}</td>
+            <td>{{player.nationality_name}}</td>
+            <td>{{player.age}}</td>
+            <td>{{player.height_cm}}</td>
+            <td>{{player.weight_kg}}</td>
+            <td>{{player.pace}}</td>
+            <td>{{player.shooting}}</td>
+            <td>{{player.passing}}</td>
+            <td>{{player.dribbling}}</td>
+            <td>{{player.defending}}</td>
+            <td>{{player.physic}}</td>
+            <td>
+                <button type="button" class="btn btn-outline-success" routerLink="/edit/{{player.id}}">
+                    <i class="fa-regular fa-pen-to-square"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
