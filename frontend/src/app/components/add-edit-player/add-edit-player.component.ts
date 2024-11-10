@@ -3,13 +3,15 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Player } from '../../interfaces/player';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-add-edit-player',
   standalone: true,
   imports: [
     RouterModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CommonModule
   ],
   templateUrl: './add-edit-player.component.html',
   styleUrl: './add-edit-player.component.css'
@@ -37,8 +39,20 @@ export class AddEditPlayerComponent {
 
   addProduct() {
     const player: Player = {
-
+    long_name: this.form.value.long_name,
+    player_positions: this.form.value.player_positions,
+    club_name: this.form.value.club_name,
+    nationality_name:this.form.value.nationality_name,
+    age:this.form.value.age, 
+    height_cm: this.form.value.height_cm,
+    weight_kg:this.form.value.weight_kg,
+    pace: this.form.value.pace,
+    shooting: this.form.value.shooting,
+    passing: this.form.value.passing,
+    dribbling: this.form.value.dribbling,
+    defending: this.form.value.defending,
+    physic: this.form.value.physic
     }
-
+    console.log(player);
   }
 }

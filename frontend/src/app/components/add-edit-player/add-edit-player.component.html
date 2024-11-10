@@ -5,24 +5,33 @@
             <div class="card-body">
                 <form [formGroup]="form" (ngSubmit)="addProduct()">
                     <input formControlName="long_name" class="form-control" placeholder="Nombre">
+                    <span *ngIf="form.get('long_name')?.hasError('required')&&form.get('long_name')?.touched">
+                        El campo nombre es requerido
+                    </span>
                     <input formControlName="player_positions" type="text"class="form-control mt-2" placeholder="Posición">
+                    <span *ngIf="form.get('player_positions')?.hasError('required')&&form.get('player_positions')?.touched">
+                        El campo nombre es requerido
+                    </span>
                     <input formControlName="club_name" type="text"class="form-control mt-2" placeholder="Club">
                     <input formControlName="nationality_name" type="text"class="form-control mt-2" placeholder="Nacionalidad">
-                    <input formControlName="age" type="text"class="form-control mt-2" placeholder="Edad">
-                    <input formControlName="height_cm" type="text"class="form-control mt-2" placeholder="Altura">
-                    <input formControlName="weight_kg" type="text"class="form-control mt-2" placeholder="Peso">
-                    <input formControlName="pace" type="text"class="form-control mt-2" placeholder="Ritmo">
-                    <input formControlName="shooting" type="text"class="form-control mt-2" placeholder="Disparo">
-                    <input formControlName="passing" type="text"class="form-control mt-2" placeholder="Pases">
-                    <input formControlName="dribbling" type="text"class="form-control mt-2" placeholder="Regate">
-                    <input formControlName="defending" type="text"class="form-control mt-2" placeholder="Defensa">
-                    <input formControlName="physic" type="text"class="form-control mt-2" placeholder="Físico">
+                    <input formControlName="age" type="number"class="form-control mt-2" placeholder="Edad">
+                    <span *ngIf="form.get('age')?.hasError('required')&&form.get('age')?.touched">
+                        El campo nombre es requerido
+                    </span>
+                    <input formControlName="height_cm" type="number" class="form-control mt-2" placeholder="Altura">
+                    <input formControlName="weight_kg" type="number" class="form-control mt-2" placeholder="Peso">
+                    <input formControlName="pace" type="number" class="form-control mt-2" placeholder="Ritmo">
+                    <input formControlName="shooting" type="number" class="form-control mt-2" placeholder="Disparo">
+                    <input formControlName="passing" type="number" class="form-control mt-2" placeholder="Pases">
+                    <input formControlName="dribbling" type="number" class="form-control mt-2" placeholder="Regate">
+                    <input formControlName="defending" type="number" class="form-control mt-2" placeholder="Defensa">
+                    <input formControlName="physic" type="number" class="form-control mt-2" placeholder="Físico">
                     <div class="row mt-2 text-center">
                         <div class="col-lg-6">
                             <button type="button" class="btn btn-secondary" routerLink="/">Volver</button>
                         </div>
                         <div class="col-lg-6">
-                            <button type="submit" class="btn btn-success ">Aceptar</button>
+                            <button [disabled]="form.invalid" type="submit" class="btn btn-success ">Aceptar</button>
                         </div>
                     </div>
                 </form>

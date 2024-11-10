@@ -1,6 +1,6 @@
 export interface Player {
     id?: number;
-    player_face_url: string;
+    player_face_url?: string;
     // fifa_version: string;
     // fifa_update: string;
     long_name: string;
