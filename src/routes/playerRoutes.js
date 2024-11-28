@@ -8,7 +8,7 @@ router.get('/', playerController.getAllPlayers);
 // router.post('/', createPlayerValidation, playerController.createPlayer);
 router.get('/:id', playerController.getPlayerById);
 // router.put('/:id', updatePlayerValidation, playerController.updatePlayer);
-router.post('/players', validatePlayer, checkValidationResult, playerController.createPlayer);
-router.put('/players/:id', validatePlayer, checkValidationResult, playerController.updatePlayer);
+router.post('/add', validatePlayer, checkValidationResult, playerController.createPlayer);
+router.put('/edit/:id', validatePlayer, checkValidationResult, playerController.updatePlayer);
 
 module.exports = router;

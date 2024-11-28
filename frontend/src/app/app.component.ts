@@ -10,7 +10,6 @@ import { ReactiveFormsModule } from '@angular/forms';
   imports: [
     RouterOutlet,
     NavbarComponent,
-    PlayersListComponent,
     ReactiveFormsModule
   ],
   templateUrl: './app.component.html',

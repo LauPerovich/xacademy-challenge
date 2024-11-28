@@ -4,6 +4,7 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Player } from '../../interfaces/player';
 import { CommonModule } from '@angular/common';
+import { PlayersService } from '../../services/players.service';
 
 @Component({
   selector: 'app-add-edit-player',
@@ -19,7 +20,9 @@ import { CommonModule } from '@angular/common';
 export class AddEditPlayerComponent {
   form: FormGroup;
 
-  constructor(private fb:FormBuilder) {
+  constructor(private fb:FormBuilder, 
+    private _playersService: PlayersService
+  ) {
     this.form = this.fb.group({
       long_name: ["", Validators.required],
       player_positions: ["", Validators.required],
@@ -37,7 +40,7 @@ export class AddEditPlayerComponent {
     })
   }
 
-  addProduct() {
+  createPlayer() {
     const player: Player = {
     long_name: this.form.value.long_name,
     player_positions: this.form.value.player_positions,
@@ -53,6 +56,8 @@ export class AddEditPlayerComponent {
     defending: this.form.value.defending,
     physic: this.form.value.physic
     }
-    console.log(player);
+    this._playersService.createPlayer(player).subscribe(() => {
+      console.log('Player added');
+    })
   }
 }

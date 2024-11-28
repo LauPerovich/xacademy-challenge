@@ -3,7 +3,7 @@
         <div class="card border-success mb-3" style="max-width: 30rem;">
             <div class="card-header text-center">Agregar jugadora</div>
             <div class="card-body">
-                <form [formGroup]="form" (ngSubmit)="addProduct()">
+                <form [formGroup]="form" (ngSubmit)="createPlayer()">
                     <input formControlName="long_name" class="form-control" placeholder="Nombre">
                     <span *ngIf="form.get('long_name')?.hasError('required')&&form.get('long_name')?.touched">
                         El campo nombre es requerido

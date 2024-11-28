@@ -27,7 +27,7 @@ export class PlayersListComponent implements OnInit {
   }
 
   getPlayersList() {
-    this._playersService.getPlayersList().subscribe((data) => {
+    this._playersService.getPlayersList().subscribe((data: Player[]) => {
       this.playersList = data;
     })
   }

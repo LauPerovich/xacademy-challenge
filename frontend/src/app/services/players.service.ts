@@ -18,4 +18,21 @@ export class PlayersService {
       map((response: { players: any; }) => response.players) // Extrae el array de la clave "players"
     );
   }
+  /*
+  getPlayer(id: number): Observable<Player[]> {
+    return this.http.get<{ players: Player[] }>(`${this.myAppUrl}`).pipe(
+      map((response: { players: any; }) => response.players) // Extrae el array de la clave "players"
+    );
+  }
+  */
+  createPlayer(player: Player): Observable<void> {
+    return this.http.post<void>(`${this.myAppUrl}add`, player);
+  }
+  /*
+  updatePlayer(id: number): Observable<Player[]> {
+    return this.http.get<{ players: Player[] }>(`${this.myAppUrl}`).pipe(
+      map((response: { players: any; }) => response.players) // Extrae el array de la clave "players"
+    );
+  }
+  */
 }
