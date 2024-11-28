@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable, tap } from 'rxjs';
 import { Player } from '../interfaces/player';
 
 @Injectable({
@@ -8,14 +8,14 @@ import { Player } from '../interfaces/player';
 })
 export class PlayersService {
   private myAppUrl: string;
-  private myApiUrl: string;
 
   constructor(private http: HttpClient) { 
-    this.myAppUrl = 'http://localhost:3000/';
-    this.myApiUrl = 'players/';
+    this.myAppUrl = 'http://localhost:3000/players/';
   }
 
   getPlayersList(): Observable<Player[]> {
-    return this.http.get<Player[]>(`${this.myAppUrl}${this.myApiUrl}`);
+    return this.http.get<{ players: Player[] }>(`${this.myAppUrl}`).pipe(
+      map((response: { players: any; }) => response.players) // Extrae el array de la clave "players"
+    );
   }
 }

@@ -27,7 +27,7 @@
         <tbody>
           <tr *ngFor="let player of playersList" class="table-active">
             <!-- <th scope="row">Active</th> -->
-            <td>{{player.player_face_url}}</td>
+            <td><img [src]="player.player_face_url" alt="{{player.long_name}}" width="50" height="50"></td>
             <td>{{player.long_name}}</td>
             <td>{{player.player_positions}}</td>
             <td>{{player.club_name}}</td>

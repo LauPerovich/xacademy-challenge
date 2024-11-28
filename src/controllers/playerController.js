@@ -41,13 +41,13 @@ const getAllPlayers = async (req, res) => {
             
             const limit = parseInt(req.query.limit) || 20;
             const offset = parseInt(req.query.offset) || 0;
-
+            
             const { count, rows } = await Player.findAndCountAll({
                 where: whereConditions,
                 limit: limit,
                 offset: offset
             });
-
+            
             return res.status(200).json({
                 total: count,
                 totalPages: Math.ceil(count / limit),

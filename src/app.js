@@ -8,10 +8,9 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 
 app.use(bodyParser.json());
-app.use('/players', playerRoutes);
 app.use(express.json());
-// app.use(cors());
-app.use(cors({ origin: 'http://localhost:4200', credentials: true }));
+app.use(cors({ origin: 'http://localhost:4200' }));
+app.use('/players/', playerRoutes);
 
 (async () => {
     initializeDb();
