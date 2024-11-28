@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { PlayersService } from '../../services/players.service';
 
-
 @Component({
   selector: 'app-players-list',
   standalone: true,

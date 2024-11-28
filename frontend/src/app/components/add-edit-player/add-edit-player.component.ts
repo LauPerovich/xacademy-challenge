@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { Player } from '../../interfaces/player';
 import { CommonModule } from '@angular/common';
 import { PlayersService } from '../../services/players.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-edit-player',
@@ -19,9 +20,13 @@ import { PlayersService } from '../../services/players.service';
 })
 export class AddEditPlayerComponent {
   form: FormGroup;
+  id: number;
 
   constructor(private fb:FormBuilder, 
-    private _playersService: PlayersService
+    private _playersService: PlayersService,
+    private router: Router,
+    private aRoute: ActivatedRoute, 
+    private toastr: ToastrService
   ) {
     this.form = this.fb.group({
       long_name: ["", Validators.required],
@@ -38,6 +43,7 @@ export class AddEditPlayerComponent {
       defending: [null, [Validators.min(1), Validators.max(100)]],
       physic: [null, [Validators.min(1), Validators.max(100)]],
     })
+    this.id = Number(aRoute.snapshot.paramMap.get('id'));
   }
 
   createPlayer() {
@@ -58,6 +64,8 @@ export class AddEditPlayerComponent {
     }
     this._playersService.createPlayer(player).subscribe(() => {
       console.log('Player added');
+      this.toastr.success(`La jugadora ${player.long_name} fue agregada`, 'Jugadora agregada');
+      this.router.navigate(['/players']);
     })
   }
 }
