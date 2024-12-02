@@ -21,6 +21,7 @@ import { ToastrService } from 'ngx-toastr';
 export class AddEditPlayerComponent {
   form: FormGroup;
   id: number;
+  operacion: string = 'Agregar ';
 
   constructor(private fb:FormBuilder, 
     private _playersService: PlayersService,
@@ -44,6 +45,15 @@ export class AddEditPlayerComponent {
       physic: [null, [Validators.min(1), Validators.max(100)]],
     })
     this.id = Number(aRoute.snapshot.paramMap.get('id'));
+    console.log(this.id);
+  }
+
+  ngOnInit(): void {
+    if(this.id != 0) {
+      this.operacion = 'Editar ';
+      this.getPlayer(this.id);
+      // this.updatePlayer(this.id);
+    }
   }
 
   createPlayer() {
@@ -62,10 +72,40 @@ export class AddEditPlayerComponent {
     defending: this.form.value.defending,
     physic: this.form.value.physic
     }
-    this._playersService.createPlayer(player).subscribe(() => {
-      console.log('Player added');
-      this.toastr.success(`La jugadora ${player.long_name} fue agregada`, 'Jugadora agregada');
-      this.router.navigate(['/players']);
-    })
+
+    if (this.id !== 0) {
+      // Editar productos
+      player.id = this.id;
+      this._playersService.updatePlayer(this.id, player).subscribe(() => {
+        this.toastr.success(`La jugadora ${player.long_name} fue actualizada`, 'Jugadora actualizada');
+        this.router.navigate(['/players']);
+      })} else {
+      // Agregar producto
+      this._playersService.createPlayer(player).subscribe(() => {
+        this.toastr.success(`La jugadora ${player.long_name} fue agregada`, 'Jugadora agregada');
+        this.router.navigate(['/players']);
+      })
+    }
   }
+
+  getPlayer(id: number) {
+    this._playersService.getPlayer(id).subscribe((data: Player) => {
+      console.log(data);
+      this.form.setValue({
+        long_name: data.long_name,
+        player_positions: data.player_positions,
+        club_name: data.club_name,
+        nationality_name:data.nationality_name,
+        age:data.age, 
+        height_cm: data.height_cm,
+        weight_kg:data.weight_kg,
+        pace: data.pace,
+        shooting: data.shooting,
+        passing: data.passing,
+        dribbling: data.dribbling,
+        defending: data.defending,
+        physic: data.physic
+      });
+    });
+  };
 }

@@ -30,4 +30,11 @@ export class PlayersListComponent implements OnInit {
       this.playersList = data;
     })
   }
+
+  // deletePlayer(id: number) {
+  //   this._playersService.deletePlayer(id).subscribe(data => {
+  //    this.getPlayersList();
+  //    this.toastr.warning('Jugadora eliminada con éxtio', 'Jugadora Eliminada');
+  //   })
+  // }
 }

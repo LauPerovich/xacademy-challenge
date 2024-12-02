@@ -4,8 +4,8 @@ import { AddEditPlayerComponent } from './components/add-edit-player/add-edit-pl
 
 export const routes: Routes = [
     { path: '', component: PlayersListComponent },
-    // { path: '/:id', component: PlayersListComponent },
     { path: 'players/add', component: AddEditPlayerComponent },
     { path: 'players/edit/:id', component: AddEditPlayerComponent },
+    // { path: 'players/delete/:id', component: PlayersListComponent },
     { path: '**', redirectTo: '', pathMatch: 'full' },
 ];
